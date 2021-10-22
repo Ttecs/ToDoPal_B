@@ -37,13 +37,16 @@ public class EmployeeController {
     public List<Employee> getAllEmployees() {
         return employeeRepository.findAll();
     }
+
     @GetMapping("/roles/{roleId}/employees")
+    @CrossOrigin(origins="http://localhost:3000")
     public Page<Employee> getAllEmployeesByRoleId(@PathVariable (value = "roleId") Long roleId,
                                               Pageable pageable) {
         return employeeRepository.findByRoleId(roleId, pageable);
     }
 
     @PostMapping("/roles/{roleId}/employees")
+    @CrossOrigin(origins="http://localhost:3000")
     public Employee createEmployee(@PathVariable (value = "roleId") Long roleId,
                            @Valid @RequestBody Employee employee) {
         return roleRepository.findById(roleId).map(role -> {
@@ -69,6 +72,7 @@ public class EmployeeController {
 
 
     @DeleteMapping("/employee/{employeeId}")
+    @CrossOrigin(origins="http://localhost:3000")
     public ResponseEntity<?> deleteEmployee(@PathVariable Long employeeId) {
         return employeeRepository.findById(employeeId).map(employee -> {
            employeeRepository.delete(employee);
