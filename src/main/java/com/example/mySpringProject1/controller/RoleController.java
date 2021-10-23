@@ -18,11 +18,13 @@ public class RoleController {
     private RoleRepository roleRepository;
 
     @GetMapping("/roles")
+    @CrossOrigin(origins="http://localhost:3000")
     public List<Role> getAllRoles() {
         return roleRepository.findAll();
     }
 
     @PostMapping("/roles")
+    @CrossOrigin(origins="http://localhost:3000")
     public Role createRole(@Valid @RequestBody Role role) {
         return roleRepository.save(role);
     }
@@ -39,6 +41,7 @@ public class RoleController {
 
 
     @DeleteMapping("/roles/{roleId}")
+    @CrossOrigin(origins="http://localhost:3000")
     public ResponseEntity<?> deleteRole(@PathVariable Long roleId) {
         return roleRepository.findById(roleId).map(role -> {
             roleRepository.delete(role);

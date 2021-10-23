@@ -24,12 +24,14 @@ public class TaskController {
     private EmployeeRepository employeeRepository;
 
     @GetMapping("/employees/{employeeId}/tasks")
+    @CrossOrigin(origins="http://localhost:3000")
     public Page<Task> getAllTasksByEmployeeId(@PathVariable (value = "employeeId") Long employeeId,
                                               Pageable pageable) {
         return taskRepository.findByEmployeeId(employeeId, pageable);
     }
 
     @PostMapping("/employees/{employeeId}/tasks")
+    @CrossOrigin(origins="http://localhost:3000")
     public Task createTask(@PathVariable (value = "employeeId") Long employeeId,
                                  @Valid @RequestBody Task task) {
         return employeeRepository.findById(employeeId).map(employee -> {
@@ -39,6 +41,7 @@ public class TaskController {
     }
 
     @PutMapping("/employees/{employeeId}/tasks/{taskId}")
+    @CrossOrigin(origins="http://localhost:3000")
     public Task updateTask(@PathVariable (value = "employeeId") Long employeeId,
                                  @PathVariable (value = "taskId") Long taskId,
                                  @Valid @RequestBody Task taskRequest) {
@@ -53,6 +56,7 @@ public class TaskController {
     }
 
     @DeleteMapping("/employees/{employeeId}/tasks/{taskId}")
+    @CrossOrigin(origins="http://localhost:3000")
     public ResponseEntity<?> deleteTask(@PathVariable (value = "employeeId") Long employeeId,
                                            @PathVariable (value = "taskId") Long taskId) {
         return taskRepository.findByIdAndEmployeeId(taskId, employeeId).map(task -> {
